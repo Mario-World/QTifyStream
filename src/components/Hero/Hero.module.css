@@ -36,3 +36,22 @@ max-width: 40%;
   max-width: 120px;
   height: auto;
 }
+
+.heroContainer {
+  background-color: #121212;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.textContent {
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  max-width: 60%;
+}
+
+.imageContent img {
+  width: 200px;
+  height: auto;
+}
