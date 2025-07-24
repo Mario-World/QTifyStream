@@ -4,6 +4,7 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './Carousel.module.css';
+
 import right from '../../assets/right_arrow.svg';
 import left from '../../assets/left_arrow.svg';
 
@@ -25,9 +26,11 @@ const Carousel = ({ items }) => {
       swiperInstance.navigation.update();
     }
   }, [swiperInstance]);
+  
 
   return (
     <div className={styles.carouselWrapper}>
+      {/* Custom Left Arrow */}
       <div
         ref={prevRef}
         className={`${styles.navButton} ${styles.left}`}
@@ -37,20 +40,29 @@ const Carousel = ({ items }) => {
         <img src={left} alt="Previous" />
       </div>
 
+      {/* Swiper */}
       <Swiper
         modules={[Navigation]}
-        slidesPerView={'auto'}
-        spaceBetween={20}
+        spaceBetween={2}
+        slidesPerView="auto"
         onSwiper={setSwiperInstance}
         className={styles.swiper}
+        breakpoints={{
+          320: { slidesPerView: 1.5 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1280: { slidesPerView: 5 },
+        }}
       >
-        {items.map((item, index) => (
+        {(items || []).map((item, index) => (
           <SwiperSlide key={index} className={styles.swiperSlide}>
             {item}
           </SwiperSlide>
         ))}
       </Swiper>
 
+      {/* Custom Right Arrow */}
       <div
         ref={nextRef}
         className={`${styles.navButton} ${styles.right}`}

@@ -1,38 +1,37 @@
 .carouselWrapper {
   position: relative;
-  display: flex;
-  align-items: center;
   width: 100%;
-}
-
-.swiper {
-  width: 100%;
-  padding: 10px 0;
-}
-
-.swiperSlide {
-  width: auto;
 }
 
 .navButton {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 40%;
   z-index: 10;
-  background: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 8px;
+  border-radius: 50%;
   cursor: pointer;
-  pointer-events: all; /* ✅ important */
+  pointer-events: all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .left {
-  left: 0;
+  left: -15px;
 }
 
 .right {
-  right: 0;
+  right: -15px;
 }
 
-.navButton img {
-  width: 24px;
-  height: 24px;
+.swiper {
+  padding-left: 4px; /* adjust as needed */
+}
+
+
+.swiperSlide {
+  width: auto;
+  margin-right: 0;
+
 }
