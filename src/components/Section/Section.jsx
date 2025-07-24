@@ -1,50 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Section.module.css';
-import Card from '../Card/Card';
 import Carousel from '../Carousel/Carousel';
-import axios from 'axios';
+import Card from '../Card/Card';
 
-const Section = ({
-  title,
-  type = 'album',
-  endpoint,
-  data: propData,
-  showToggleButton = true,
-}) => {
-  const [data, setData] = useState([]);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+const Section = ({ title, data = [], type = 'album' }) => {
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (propData) {
-        setData(propData);
-        return;
-      }
-      try {
-        const response = await axios.get(endpoint);
-        setData(Array.isArray(response.data) ? response.data : response.data.data || []);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, [endpoint, propData]);
-
-  const handleToggle = () => setIsCollapsed((prev) => !prev);
+  const handleToggle = () => {
+    setIsCollapsed((prev) => !prev);
+  };
 
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2 className={styles.title}>{title}</h2>
-        {showToggleButton && (
-          <span
-            className={styles.toggleText}
-            data-testid="toggle-button"
-            onClick={handleToggle}
-          >
-            {isCollapsed ? 'Show All' : 'Collapse'}
-          </span>
-        )}
+        <span
+          className={styles.toggleText}
+          onClick={handleToggle}
+          data-testid="toggle-button"
+        >
+          {isCollapsed ? 'Show All' : 'Collapse'}
+        </span>
       </div>
 
       {isCollapsed ? (
