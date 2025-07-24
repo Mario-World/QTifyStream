@@ -4,6 +4,8 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import styles from './Carousel.module.css';
+import right from '../../assets/right_arrow.svg';
+import left from '../../assets/left_arrow.svg';
 
 const Carousel = ({ items }) => {
   const [navReady, setNavReady] = useState(false);
@@ -19,7 +21,7 @@ const Carousel = ({ items }) => {
     <div className={styles.carouselWrapper}>
       {/* Left nav button */}
       <div ref={prevRef} className={`${styles.navButton} ${styles.left}`}>
-        <img src="/assets/left_arrow.svg" alt="Previous" />
+        <img src={left} alt="Previous" />
       </div>
 
       <Swiper
@@ -50,7 +52,7 @@ const Carousel = ({ items }) => {
 
       {/* Right nav button */}
       <div ref={nextRef} className={`${styles.navButton} ${styles.right}`}>
-        <img src="/assets/right_arrow.svg" alt="Next" />
+        <img src={right} alt="Next" />
       </div>
     </div>
   );

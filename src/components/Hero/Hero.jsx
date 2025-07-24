@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Hero.module.css";
+import hero from '../../assets/hero_headphones.png';
 
 const Hero = () => {
   return (
@@ -9,7 +10,7 @@ const Hero = () => {
         <p>Over thousands of podcast episodes</p>
       </div>
       <div className={styles.imageContent}>
-        <img src="/assets/hero_headphones.png" alt="headphones" />
+        <img src={hero} alt="headphones" />
       </div>
     </div>
   );
