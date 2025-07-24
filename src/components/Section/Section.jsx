@@ -31,9 +31,9 @@ const Section = ({ title, type = 'album', endpoint, data: propData, showToggleBu
       <div className={styles.sectionHeader}>
         <h2 className={styles.title}>{title}</h2>
         {showToggleButton && (
-          <button className={styles.toggleButton} onClick={handleToggle}>
+          <span className={styles.toggleText} onClick={handleToggle}>
             {isCollapsed ? 'Show All' : 'Collapse'}
-          </button>
+          </span>
         )}
       </div>
 

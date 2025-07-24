@@ -12,14 +12,12 @@ const Carousel = ({ items }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  // Delay setting navigation so Swiper can access refs
   useEffect(() => {
     setNavReady(true);
   }, []);
 
   return (
     <div className={styles.carouselWrapper}>
-      {/* Left nav button */}
       <div ref={prevRef} className={`${styles.navButton} ${styles.left}`}>
         <img src={left} alt="Previous" />
       </div>
@@ -33,7 +31,6 @@ const Carousel = ({ items }) => {
           nextEl: nextRef.current,
         } : false}
         onSwiper={(swiper) => {
-          // Assign buttons when ready
           if (navReady) {
             swiper.params.navigation.prevEl = prevRef.current;
             swiper.params.navigation.nextEl = nextRef.current;
@@ -50,7 +47,6 @@ const Carousel = ({ items }) => {
         ))}
       </Swiper>
 
-      {/* Right nav button */}
       <div ref={nextRef} className={`${styles.navButton} ${styles.right}`}>
         <img src={right} alt="Next" />
       </div>
