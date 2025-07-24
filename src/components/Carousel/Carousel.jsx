@@ -1,5 +1,4 @@
-// Carousel.jsx
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -7,26 +6,38 @@ import 'swiper/css/navigation';
 import styles from './Carousel.module.css';
 
 const Carousel = ({ items }) => {
+  const [navReady, setNavReady] = useState(false);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  // Delay setting navigation so Swiper can access refs
+  useEffect(() => {
+    setNavReady(true);
+  }, []);
+
   return (
     <div className={styles.carouselWrapper}>
-      <div className={`${styles.navButton} ${styles.left}`} ref={prevRef}>
-        <img src="/assets/left_arrow.svg" alt="Left" />
+      {/* Left nav button */}
+      <div ref={prevRef} className={`${styles.navButton} ${styles.left}`}>
+        <img src="/assets/left_arrow.svg" alt="Previous" />
       </div>
 
       <Swiper
         modules={[Navigation]}
         slidesPerView={'auto'}
         spaceBetween={20}
-        onBeforeInit={(swiper) => {
-          swiper.params.navigation.prevEl = prevRef.current;
-          swiper.params.navigation.nextEl = nextRef.current;
-        }}
-        navigation={{
+        navigation={navReady ? {
           prevEl: prevRef.current,
           nextEl: nextRef.current,
+        } : false}
+        onSwiper={(swiper) => {
+          // Assign buttons when ready
+          if (navReady) {
+            swiper.params.navigation.prevEl = prevRef.current;
+            swiper.params.navigation.nextEl = nextRef.current;
+            swiper.navigation.init();
+            swiper.navigation.update();
+          }
         }}
         className={styles.swiper}
       >
@@ -37,15 +48,12 @@ const Carousel = ({ items }) => {
         ))}
       </Swiper>
 
-      <div className={`${styles.navButton} ${styles.right}`} ref={nextRef}>
-        <img src="/assets/right_arrow.svg" alt="Right" />
+      {/* Right nav button */}
+      <div ref={nextRef} className={`${styles.navButton} ${styles.right}`}>
+        <img src="/assets/right_arrow.svg" alt="Next" />
       </div>
     </div>
   );
 };
 
 export default Carousel;
-
-
-///assets/right_arrow.svg
-  

@@ -1,16 +1,53 @@
 .section {
-  margin-top: 32px;
-  padding: 0 16px;
+  margin: 2rem 0;
 }
 
-.header {
+.sectionHeader {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.tabs {
-  background-color: transparent;
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
   color: white;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  color: #34c94b;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.genreTabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.genreButton {
+  background: none;
+  border: 1px solid #34c94b;
+  color: #34c94b;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.genreButton.active,
+.genreButton:hover {
+  background-color: #34c94b;
+  color: black;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
 }
