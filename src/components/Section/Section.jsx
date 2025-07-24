@@ -4,31 +4,33 @@ import Card from '../Card/Card';
 import Carousel from '../Carousel/Carousel';
 import axios from 'axios';
 
-const Section = ({ title, type = 'album', endpoint, data: propData, showToggleButton = true }) => {
+const Section = ({
+  title,
+  type = 'album',
+  endpoint,
+  data: propData,
+  showToggleButton = true,
+}) => {
   const [data, setData] = useState([]);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
+      if (propData) {
+        setData(propData);
+        return;
+      }
       try {
-        if (propData && Array.isArray(propData)) {
-          setData(propData);
-        } else if (endpoint) {
-          const response = await axios.get(endpoint);
-          const apiData = Array.isArray(response.data) ? response.data : response.data?.data || [];
-          setData(apiData);
-        }
+        const response = await axios.get(endpoint);
+        setData(Array.isArray(response.data) ? response.data : response.data.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, [endpoint, propData]);
 
-  const handleToggle = () => {
-    setIsCollapsed((prev) => !prev);
-  };
+  const handleToggle = () => setIsCollapsed((prev) => !prev);
 
   return (
     <div className={styles.section}>
@@ -37,9 +39,8 @@ const Section = ({ title, type = 'album', endpoint, data: propData, showToggleBu
         {showToggleButton && (
           <span
             className={styles.toggleText}
+            data-testid="toggle-button"
             onClick={handleToggle}
-            role="button"
-            tabIndex={0}
           >
             {isCollapsed ? 'Show All' : 'Collapse'}
           </span>

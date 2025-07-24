@@ -44,7 +44,11 @@ const SongsSection = () => {
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2 className={styles.title}>Songs</h2>
-        <span className={styles.toggleText} onClick={handleToggle}>
+        <span
+          data-testid="toggle-button"
+          className={styles.toggleText}
+          onClick={handleToggle}
+        >
           {isCollapsed ? 'Show All' : 'Collapse'}
         </span>
       </div>

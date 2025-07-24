@@ -27,6 +27,14 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.toggleText {
+  cursor: pointer;
+  color: #34c94b;
+  font-weight: 600;
+  margin-left: auto; /* aligns right */
+}
+
+
 .cardGrid {
   display: flex;
   flex-wrap: wrap;
