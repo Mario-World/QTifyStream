@@ -1,0 +1,16 @@
+.section {
+  margin-top: 32px;
+  padding: 0 16px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tabs {
+  background-color: transparent;
+  color: white;
+}
