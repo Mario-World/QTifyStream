@@ -6,16 +6,18 @@ import Button from '../Button/Button';
 
 const Navbar = () => {
   return (
-    <nav className={styles.navbar}>
-      <div className={styles.logoDiv}>
-        <img src={Logo} alt="logo" width={67} />
+    <header className={styles.navbar} data-testid="navbar">
+      <div className={styles.logoDiv} data-testid="navbar-logo">
+        <img src={Logo} alt="Qtify Logo" width={67} />
       </div>
-      <Search search="Search a song of your choice" />
-      <Button >Give Feedback</Button>
-    </nav>
+
+      <Search placeholder="Search a song of your choice" data-testid="search-bar" />
+
+      <div data-testid="feedback-button">
+        <Button>Give Feedback</Button>
+      </div>
+    </header>
   );
 };
 
 export default Navbar;
-
-

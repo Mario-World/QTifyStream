@@ -1,14 +1,27 @@
 .carouselWrapper {
   position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
+}
+
+.swiper {
+  width: 100%;
+  padding: 10px 0;
+}
+
+.swiperSlide {
+  width: auto;
 }
 
 .navButton {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 2;
+  z-index: 10;
+  background: transparent;
   cursor: pointer;
+  pointer-events: all; /* ✅ important */
 }
 
 .left {
@@ -19,6 +32,7 @@
   right: 0;
 }
 
-.swiperSlide {
-  width: auto !important; /* ensures correct auto sizing */
+.navButton img {
+  width: 24px;
+  height: 24px;
 }

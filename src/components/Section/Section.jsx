@@ -10,28 +10,37 @@ const Section = ({ title, type = 'album', endpoint, data: propData, showToggleBu
 
   useEffect(() => {
     const fetchData = async () => {
-      if (propData) {
-        setData(propData);
-        return;
-      }
       try {
-        const response = await axios.get(endpoint);
-        setData(Array.isArray(response.data) ? response.data : response.data.data || []);
+        if (propData && Array.isArray(propData)) {
+          setData(propData);
+        } else if (endpoint) {
+          const response = await axios.get(endpoint);
+          const apiData = Array.isArray(response.data) ? response.data : response.data?.data || [];
+          setData(apiData);
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
+
     fetchData();
   }, [endpoint, propData]);
 
-  const handleToggle = () => setIsCollapsed((prev) => !prev);
+  const handleToggle = () => {
+    setIsCollapsed((prev) => !prev);
+  };
 
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2 className={styles.title}>{title}</h2>
         {showToggleButton && (
-          <span className={styles.toggleText} onClick={handleToggle}>
+          <span
+            className={styles.toggleText}
+            onClick={handleToggle}
+            role="button"
+            tabIndex={0}
+          >
             {isCollapsed ? 'Show All' : 'Collapse'}
           </span>
         )}

@@ -8,17 +8,32 @@ import right from '../../assets/right_arrow.svg';
 import left from '../../assets/left_arrow.svg';
 
 const Carousel = ({ items }) => {
-  const [navReady, setNavReady] = useState(false);
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const [swiperInstance, setSwiperInstance] = useState(null);
 
   useEffect(() => {
-    setNavReady(true);
-  }, []);
+    if (
+      swiperInstance &&
+      prevRef.current &&
+      nextRef.current &&
+      !swiperInstance.destroyed
+    ) {
+      swiperInstance.params.navigation.prevEl = prevRef.current;
+      swiperInstance.params.navigation.nextEl = nextRef.current;
+      swiperInstance.navigation.init();
+      swiperInstance.navigation.update();
+    }
+  }, [swiperInstance]);
 
   return (
     <div className={styles.carouselWrapper}>
-      <div ref={prevRef} className={`${styles.navButton} ${styles.left}`}>
+      <div
+        ref={prevRef}
+        className={`${styles.navButton} ${styles.left}`}
+        role="button"
+        tabIndex={0}
+      >
         <img src={left} alt="Previous" />
       </div>
 
@@ -26,18 +41,7 @@ const Carousel = ({ items }) => {
         modules={[Navigation]}
         slidesPerView={'auto'}
         spaceBetween={20}
-        navigation={navReady ? {
-          prevEl: prevRef.current,
-          nextEl: nextRef.current,
-        } : false}
-        onSwiper={(swiper) => {
-          if (navReady) {
-            swiper.params.navigation.prevEl = prevRef.current;
-            swiper.params.navigation.nextEl = nextRef.current;
-            swiper.navigation.init();
-            swiper.navigation.update();
-          }
-        }}
+        onSwiper={setSwiperInstance}
         className={styles.swiper}
       >
         {items.map((item, index) => (
@@ -47,7 +51,12 @@ const Carousel = ({ items }) => {
         ))}
       </Swiper>
 
-      <div ref={nextRef} className={`${styles.navButton} ${styles.right}`}>
+      <div
+        ref={nextRef}
+        className={`${styles.navButton} ${styles.right}`}
+        role="button"
+        tabIndex={0}
+      >
         <img src={right} alt="Next" />
       </div>
     </div>

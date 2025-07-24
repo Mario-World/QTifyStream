@@ -10,23 +10,20 @@
 }
 
 .title {
-  color: white;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 600;
+  color: white;
 }
 
-.toggleButton {
-  background: none;
-  border: none;
-  color: #34c94b; /* Green */
-  font-weight: 600;
-  font-size: 16px;
+.toggleText {
+  font-size: 14px;
+  font-weight: 500;
+  color: #34c94b;
   cursor: pointer;
 }
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 16px;
-  margin-top: 20px;
 }

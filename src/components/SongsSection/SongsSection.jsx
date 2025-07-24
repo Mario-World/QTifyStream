@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import styles from './SongsSection.module.css';
 import axios from 'axios';
-import Carousel from '../Carousel/Carousel';
+import styles from './SongsSection.module.css';
 import Card from '../Card/Card';
-import { Tab, Tabs, Box } from '@mui/material';
+import Carousel from '../Carousel/Carousel';
 
 const SongsSection = () => {
   const [songs, setSongs] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [filteredSongs, setFilteredSongs] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('all');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
     const fetchSongsAndGenres = async () => {
@@ -19,57 +17,52 @@ const SongsSection = () => {
           axios.get('https://qtify-backend-labs.crio.do/songs'),
           axios.get('https://qtify-backend-labs.crio.do/genres'),
         ]);
-
         setSongs(songsRes.data);
-        setGenres(genresRes.data.data);
-        setFilteredSongs(songsRes.data);
+        setGenres([{ label: 'All', key: 'all' }, ...genresRes.data.data]);
       } catch (error) {
-        console.error('Error fetching songs or genres:', error);
+        console.error('Failed to fetch songs or genres', error);
       }
     };
 
     fetchSongsAndGenres();
   }, []);
 
-  const handleGenreChange = (event, newValue) => {
-    setSelectedGenre(newValue);
-    if (newValue === 'all') {
-      setFilteredSongs(songs);
-    } else {
-      setFilteredSongs(songs.filter((song) => song.genre.key === newValue));
-    }
+  const handleToggle = () => {
+    setIsCollapsed((prev) => !prev);
   };
 
-  const handleToggle = () => setIsCollapsed((prev) => !prev);
+  const handleGenreChange = (key) => {
+    setSelectedGenre(key);
+  };
+
+  const filteredSongs =
+    selectedGenre === 'all'
+      ? songs
+      : songs.filter((song) => song.genre.key === selectedGenre);
 
   return (
     <div className={styles.section}>
       <div className={styles.sectionHeader}>
         <h2 className={styles.title}>Songs</h2>
-        <button className={styles.toggleButton} onClick={handleToggle}>
+        <span className={styles.toggleText} onClick={handleToggle}>
           {isCollapsed ? 'Show All' : 'Collapse'}
-        </button>
+        </span>
       </div>
 
-      {/* Genre Tabs */}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={selectedGenre}
-          onChange={handleGenreChange}
-          textColor="secondary"
-          indicatorColor="secondary"
-          variant="scrollable"
-          scrollButtons
-          allowScrollButtonsMobile
-        >
-          <Tab label="All" value="all" />
-          {genres.map((genre) => (
-            <Tab key={genre.key} label={genre.label} value={genre.key} />
-          ))}
-        </Tabs>
-      </Box>
+      <div className={styles.genreTabs}>
+        {genres.map((genre) => (
+          <button
+            key={genre.key}
+            className={`${styles.tabButton} ${
+              selectedGenre === genre.key ? styles.activeTab : ''
+            }`}
+            onClick={() => handleGenreChange(genre.key)}
+          >
+            {genre.label}
+          </button>
+        ))}
+      </div>
 
-      {/* Song Display */}
       {isCollapsed ? (
         <Carousel
           items={filteredSongs.map((song) => (
