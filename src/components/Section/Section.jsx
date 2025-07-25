@@ -13,7 +13,7 @@ const Section = ({
   showToggleButton = true,
 }) => {
   const [data, setData] = useState([]);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
