@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+
   margin-bottom: 16px;
 }
 
@@ -33,4 +33,15 @@
   gap: 16px;
   justify-content: flex-start;
   padding: 0 16px;
+}
+
+.toggleText {
+  color: #1dd75b; /* Green */
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.toggleText:hover {
+  color: #17b34a; /* Slightly darker green on hover */
 }
